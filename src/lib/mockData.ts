@@ -34,6 +34,7 @@ export interface InterviewItem {
 }
 
 export interface AnalysisResult {
+  purpose: Purpose
   companyName: string
   domain: string
   tagline: string
@@ -947,11 +948,12 @@ function purposeLead(purpose: Purpose, name: string): string {
   }
 }
 
-function unknownCompany(rawInput: string): AnalysisResult {
+function unknownCompany(rawInput: string, purpose: Purpose): AnalysisResult {
   const name = displayNameFromInput(rawInput)
   const domain = normalizeInput(rawInput)
 
   return {
+    purpose,
     companyName: name,
     domain: domain || 'unknown',
     tagline: 'Demo report not available yet.',
@@ -1009,10 +1011,11 @@ export function generateAnalysis(rawInput: string, purpose: Purpose): AnalysisRe
   const company = findCompany(rawInput)
 
   if (!company) {
-    return unknownCompany(rawInput)
+    return unknownCompany(rawInput, purpose)
   }
 
   return {
+    purpose,
     companyName: company.name,
     domain: company.domains[0],
     tagline: company.tagline,
