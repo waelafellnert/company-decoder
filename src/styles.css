@@ -1,0 +1,111 @@
+@import "tailwindcss" source("../");
+
+/* ------------------------------------------------------------------ *
+ * Company Decoder — clean blue theme
+ * Display: Bricolage Grotesque · Body: Manrope (loaded in __root.tsx)
+ * ------------------------------------------------------------------ */
+
+:root {
+  /* Blues */
+  --blue-50: #eef4ff;
+  --blue-100: #dce8ff;
+  --blue-200: #bcd2ff;
+  --blue-300: #8fb4ff;
+  --blue-500: #2f6bff;
+  --blue-600: #1b52e6;
+  --blue-700: #163fb4;
+  --blue-900: #0f1f4d;
+
+  /* Neutrals (tinted toward blue, never pure black) */
+  --ink: #101828;
+  --ink-soft: #475069;
+  --ink-faint: #8892a6;
+  --surface: #f6f9ff;
+  --card: #ffffff;
+  --line: #e4ebf7;
+}
+
+body {
+  @apply m-0;
+  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background-color: var(--surface);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-display {
+  font-family: "Bricolage Grotesque", "Manrope", sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+/* Atmospheric hero backdrop: soft blue mesh + faint grid ------------- */
+.hero-backdrop {
+  background:
+    radial-gradient(60% 55% at 15% 0%, rgba(47, 107, 255, 0.14), transparent 60%),
+    radial-gradient(50% 50% at 95% 10%, rgba(143, 180, 255, 0.18), transparent 60%),
+    linear-gradient(180deg, #f0f5ff 0%, var(--surface) 100%);
+}
+
+.grid-overlay {
+  background-image:
+    linear-gradient(to right, rgba(22, 63, 180, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(22, 63, 180, 0.05) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: radial-gradient(70% 60% at 50% 0%, #000 30%, transparent 80%);
+  mask-image: radial-gradient(70% 60% at 50% 0%, #000 30%, transparent 80%);
+}
+
+/* Motion --------------------------------------------------------------- */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-rise {
+  animation: rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: #eef2fb;
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.7),
+    transparent
+  );
+  animation: shimmer 1.4s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-rise,
+  .skeleton::after {
+    animation: none;
+  }
+}
